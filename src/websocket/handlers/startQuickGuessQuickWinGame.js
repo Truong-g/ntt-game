@@ -21,7 +21,7 @@ module.exports = async function (ws, channelName, subType) {
           payload: newData,
         });
         const [ansewerData] = await db.execute(
-          "SELECT * FROM quick_guess_quick_win_answers"
+          "SELECT * FROM quick_guess_quick_win_answers ORDER BY RAND()"
         );
         newData.ansewerData = ansewerData;
         const currentNumber = newData.generalData.currentNumber
