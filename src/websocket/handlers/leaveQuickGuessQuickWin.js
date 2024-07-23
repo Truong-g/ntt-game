@@ -31,6 +31,9 @@ module.exports = function (ws, channelName) {
   newData.members = newData.members.filter(
     (item) => item.username !== username
   );
+  for (let index = 0; index < newData.members.length; index++) {
+    newData.members[index].timeCountDown = newData.generalData.timeCountDown;
+  }
   delete newData.ansewerData;
   gameDataModel.update(newData);
   sendByQuickGuessQuickWinChannelName(newData.channelName, {

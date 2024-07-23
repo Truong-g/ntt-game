@@ -30,6 +30,7 @@ module.exports = async function (ws, channelName, timeCountDown) {
           timeCountDown: timeCountDown,
         },
       ],
+      limitMember: 2
     };
     gameDataModel.add(gameData);
     ws.send(

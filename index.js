@@ -69,11 +69,18 @@ wss.on("connection", (ws, rquest, client) => {
         break;
       }
       case "actions-quick-guess-quick-win-game": {
-        actionsQuickGuessQuickWin(ws, data.subType, data.channelName, data.answer, data.timeCountDownUpdate)
+        actionsQuickGuessQuickWin(
+          ws,
+          data.subType,
+          data.channelName,
+          data.answer,
+          data.timeCountDownUpdate,
+          data.currentMessage
+        );
         break;
       }
       case "leave-quick-guess-quick-win-game": {
-        leaveQuickGuessQuickWin(ws, data.channelName)
+        leaveQuickGuessQuickWin(ws, data.channelName);
         break;
       }
       default:

@@ -5,6 +5,7 @@ const questionRoutes = require("./questionRoutes");
 const userRoutes = require("./userRoutes");
 const playerRoutes = require("./playerRoutes");
 const gameRoutes = require("./gameRoutes");
+const quickGuessQuickWinRoutes = require("./quickGuessQuickWinRoutes");
 module.exports = function initialRoutes() {
   const router = new Router();
   authRoutes(router);
@@ -14,5 +15,6 @@ module.exports = function initialRoutes() {
   router.use(authMiddleware);
   userRoutes(router);
   questionRoutes(router);
+  quickGuessQuickWinRoutes(router);
   return router;
 };

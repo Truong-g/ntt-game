@@ -14,6 +14,15 @@ module.exports = async function (ws, channelName) {
       );
       return;
     }
+    if (data.members.length === data.limitMember) {
+      ws.send(
+        JSON.stringify({
+          type: "error",
+          message: "Phòng đã đầy",
+        })
+      );
+      return;
+    }
     const [user] = await db.execute(
       `
                 SELECT * FROM players WHERE username = ?

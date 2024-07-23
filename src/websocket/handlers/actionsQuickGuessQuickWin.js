@@ -6,7 +6,8 @@ module.exports = function (
   subType,
   channelName,
   question,
-  timeCountDownUpdate
+  timeCountDownUpdate,
+  currentMessage
 ) {
   const data = gameDataModel.get(channelName);
   if (!data) {
@@ -42,14 +43,17 @@ module.exports = function (
     case "next-play": {
       const newData = { ...data };
       const username = ws.username;
+      const index = newData.members.findIndex(
+        (member) => member.isPlaying && username === member.username
+      );
+      if (index > -1) {
+        newData.members[index].isPlaying = false;
+        newData.members[
+          index === newData.members.length - 1 ? 0 : index + 1
+        ].isPlaying = true;
+      }
       if (timeCountDownUpdate && timeCountDownUpdate?.length) {
-        console.log(timeCountDownUpdate);
         for (let index = 0; index < newData.members.length; index++) {
-          if (newData.members[index].username === username) {
-            newData.members[index].isPlaying = true;
-          } else {
-            newData.members[index].isPlaying = false;
-          }
           for (let j = 0; j < timeCountDownUpdate.length; j++) {
             if (
               newData.members[index].username ===
@@ -172,6 +176,17 @@ module.exports = function (
       sendByQuickGuessQuickWinChannelName(newData.channelName, {
         type: "update-success",
         payload: newData,
+      });
+      break;
+    }
+    case "send-message": {
+      const username = ws.username;
+      sendByQuickGuessQuickWinChannelName(channelName, {
+        type: "send-message",
+        payload: {
+          username,
+          currentMessage,
+        },
       });
       break;
     }

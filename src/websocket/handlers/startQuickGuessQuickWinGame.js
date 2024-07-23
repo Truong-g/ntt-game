@@ -10,11 +10,9 @@ module.exports = async function (ws, channelName, subType) {
       case "wheel-player": {
         const newData = { ...data };
         newData.status = "wheel-player";
-
         newData.others = {
-          wheelPlayerResult: 0.7,
+          wheelPlayerResult: Math.random(),
         };
-
         gameDataModel.update(newData);
         sendByQuickGuessQuickWinChannelName(newData.channelName, {
           type: "update-success",

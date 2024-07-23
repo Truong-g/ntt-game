@@ -15,8 +15,8 @@ module.exports = async function (request, next) {
       `SELECT * FROM players WHERE username = ?`,
       [username]
     );
-    console.error("authenWs: ", rows);
     if (!rows.length) {
+      console.error("authenWs: ", rows);
       next(true, null);
       return;
     }
