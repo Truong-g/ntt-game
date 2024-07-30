@@ -13,6 +13,11 @@ const joinQuickGuessQuickWin = require("./src/websocket/handlers/joinQuickGuessQ
 const startQuickGuessQuickWinGame = require("./src/websocket/handlers/startQuickGuessQuickWinGame");
 const actionsQuickGuessQuickWin = require("./src/websocket/handlers/actionsQuickGuessQuickWin");
 const leaveQuickGuessQuickWin = require("./src/websocket/handlers/leaveQuickGuessQuickWin");
+const createCaro = require("./src/websocket/handlers/createCaro");
+const findCaro = require("./src/websocket/handlers/findCaro");
+const joinCaro = require("./src/websocket/handlers/joinCaro");
+const sendMessageCaro = require("./src/websocket/handlers/sendMessageCaro");
+const actionsGameCaro = require("./src/websocket/handlers/actionsGameCaro");
 require("./src/caches/config");
 
 const app = new Koa();
@@ -81,6 +86,26 @@ wss.on("connection", (ws, rquest, client) => {
       }
       case "leave-quick-guess-quick-win-game": {
         leaveQuickGuessQuickWin(ws, data.channelName);
+        break;
+      }
+      case "create-caro-game": {
+        createCaro(ws, data.channelName, data.payload);
+        break;
+      }
+      case "find-caro-game": {
+        findCaro(ws, data.channelName, data.transaction);
+        break;
+      }
+      case "join-caro-game": {
+        joinCaro(ws, data.channelName);
+        break;
+      }
+      case "send-message-caro": {
+        sendMessageCaro(data.channelName, data.payload);
+        break;
+      }
+      case "actions-caro-game": {
+        actionsGameCaro(ws, data.channelName, data.payload);
         break;
       }
       default:

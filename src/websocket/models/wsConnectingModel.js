@@ -1,4 +1,5 @@
 const { cache } = require("../../caches/config");
+const disconnectCaroGame = require("../disconnectHandleEffect/disconnectCaroGame");
 const disconnectQuickGuessQuickWinGame = require("../disconnectHandleEffect/disconnectQuickGuessQuickWinGame");
 
 const wsConnectingModel = {
@@ -35,6 +36,8 @@ const wsConnectingModel = {
       disconnectQuickGuessQuickWinGame(params.username, (channelList) => {
         console.log(channelList);
       });
+
+      disconnectCaroGame(params.username)
 
       cache.set("ws-connecting-list", _wsConnectingList);
       onSuccess(_wsConnectingList);
