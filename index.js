@@ -18,6 +18,7 @@ const findCaro = require("./src/websocket/handlers/findCaro");
 const joinCaro = require("./src/websocket/handlers/joinCaro");
 const sendMessageCaro = require("./src/websocket/handlers/sendMessageCaro");
 const actionsGameCaro = require("./src/websocket/handlers/actionsGameCaro");
+const leaveCaro = require("./src/websocket/handlers/leaveCaro");
 require("./src/caches/config");
 
 const app = new Koa();
@@ -89,7 +90,7 @@ wss.on("connection", (ws, rquest, client) => {
         break;
       }
       case "create-caro-game": {
-        createCaro(ws, data.channelName, data.payload);
+        createCaro(ws, data.channelName);
         break;
       }
       case "find-caro-game": {
@@ -106,6 +107,10 @@ wss.on("connection", (ws, rquest, client) => {
       }
       case "actions-caro-game": {
         actionsGameCaro(ws, data.channelName, data.payload);
+        break;
+      }
+      case "leave-game-caro": {
+        leaveCaro(ws, data.channelName);
         break;
       }
       default:

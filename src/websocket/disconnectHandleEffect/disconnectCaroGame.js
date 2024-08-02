@@ -4,7 +4,7 @@ module.exports = function (username) {
   let gameData = cache.get("caro-game-data");
   if (gameData) {
     for (let index = 0; index < gameData.length; index++) {
-      if (gameData[index].secondPlayer.username === username) {
+      if (gameData[index].secondPlayer?.username === username) {
         delete gameData[index].secondPlayer;
       }
     }

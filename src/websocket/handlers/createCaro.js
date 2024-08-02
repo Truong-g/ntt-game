@@ -1,7 +1,7 @@
 const db = require("../../configs/database");
 const caroGameDataModel = require("../../games/caroGameDataModel");
 
-module.exports = async function (ws, channelName, payload) {
+module.exports = async function (ws, channelName) {
   try {
     const [user] = await db.execute(
       `
@@ -13,15 +13,12 @@ module.exports = async function (ws, channelName, payload) {
     const gamePayload = {
       channelName,
       status: "player-shortage",
-      settings: {
-        blockBothEndsRule: payload.blockBothEndsRule,
-        timeCountDown: payload.timeCountDown,
-      },
       firstPlayer: {
         isHost: true,
         fullName: user[0].fullName,
         username: user[0].username,
         gameType: null,
+        score: 0
       },
       currentPlayer:null
     };

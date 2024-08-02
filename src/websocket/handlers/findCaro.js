@@ -12,15 +12,23 @@ module.exports = function (ws, channelName, transaction) {
     );
     return;
   }
+  if (data.secondPlayer) {
+    ws.send(
+      JSON.stringify({
+        transaction,
+        type: "error",
+        message: "Phòng này đã có người tham gia",
+      })
+    );
+    return;
+  }
   ws.send(
     JSON.stringify({
       transaction,
       type: "find-caro-game-success",
       payload: {
-        blockBothEndsRule: data.settings.blockBothEndsRule,
         channelName: data.channelName,
         host: data.firstPlayer.username,
-        timeCountDown: data.settings.timeCountDown,
       },
     })
   );

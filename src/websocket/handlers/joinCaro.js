@@ -26,6 +26,7 @@ module.exports = async function (ws, channelName) {
       fullName: user[0].fullName,
       username: user[0].username,
       gameType: null,
+      score: 0
     };
     data.status = "non-start";
     caroGameDataModel.update(data);

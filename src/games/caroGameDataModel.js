@@ -32,6 +32,13 @@ const caroGameDataModel = {
       }
     }
   },
+  delete (channelName) {
+    let gameData = cache.get("caro-game-data");
+    if (gameData) {
+      gameData = gameData.filter((item) => item.channelName !== channelName);
+      cache.set("caro-game-data", gameData);
+    }
+  }
 };
 
 module.exports = caroGameDataModel;

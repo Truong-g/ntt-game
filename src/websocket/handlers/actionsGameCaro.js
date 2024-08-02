@@ -81,6 +81,22 @@ module.exports = function (ws, channelName, payload) {
       });
       break;
     }
+    case "win-game": {
+      data.firstPlayer.score =
+        data.firstPlayer.username === payload.winner
+          ? data.firstPlayer.score + 1
+          : data.firstPlayer.score;
+      data.secondPlayer.score =
+        data.secondPlayer.username === payload.winner
+          ? data.secondPlayer.score + 1
+          : data.secondPlayer.score;
+      caroGameDataModel.update(data);
+      sendCaroChannelName(channelName, {
+        type: "update-caro-success",
+        payload: data,
+      });
+      break;
+    }
     case "restart-game": {
       data.currentPlayer = payload.loseUser;
       caroGameDataModel.update(data);

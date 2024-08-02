@@ -10,6 +10,16 @@ const getQuickGuessQuickWinGame = async (ctx) => {
   }
 };
 
+
+const getCaroGame = async (ctx) => {
+  try {
+    const result = cache.get("caro-game-data") || [];
+    ctx.body = result;
+  } catch (error) {
+    ctx.throw(500, error.message);
+  }
+};
+
 const createChannel = async (ctx) => {
   try {
     const { roomName, createdBy } = ctx.request.body;
@@ -61,4 +71,5 @@ module.exports = {
   createChannel,
   getQuickGuessQuickWinGame,
   joinChannel,
+  getCaroGame
 };
